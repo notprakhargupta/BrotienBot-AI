@@ -1,26 +1,543 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  /* Base Variables */
+  --radius: 0.5rem;
+
+  /* Quantum AI Theme Colors */
+  --quantum-black: #010812;
+  --quantum-dark: #0a101e;
+  --quantum-purple: #9d00ff;
+  --quantum-purple-glow: #b347ff;
+  --quantum-neon: #00ffbb;
+  --quantum-teal: #00ccb7;
+  --quantum-blue: #2272ff;
+  --quantum-accent: rgba(0, 255, 187, 0.4);
+  --quantum-matrix: rgba(0, 255, 187, 0.08);
+
+  /* Background with hex matrix pattern */
+  --background: var(--quantum-dark);
+  --foreground: #f0f2ff;
+
+  /* Card and popover elements */
+  --card: rgba(15, 23, 42, 0.8);
+  --card-foreground: #f0f2ff;
+  --card-glow: 0 0 15px rgba(0, 255, 187, 0.2);
+  --popover: rgba(10, 16, 30, 0.95);
+  --popover-foreground: #f0f2ff;
+
+  /* Primary - Quantum colors */
+  --primary: var(--quantum-neon);
+  --primary-foreground: var(--quantum-dark);
+  --primary-glow: 0 0 20px rgba(0, 255, 187, 0.5);
+
+  /* Secondary - Purple quantum */
+  --secondary: var(--quantum-purple);
+  --secondary-foreground: #ffffff;
+  --secondary-glow: 0 0 18px rgba(157, 0, 255, 0.4);
+
+  /* Accent - Teal energy */
+  --accent: var(--quantum-teal);
+  --accent-foreground: var(--quantum-dark);
+  --accent-glow: 0 0 15px rgba(0, 204, 183, 0.4);
+
+  /* Muted elements */
+  --muted: rgba(30, 41, 59, 0.8);
+  --muted-foreground: #a3b8f0;
+
+  /* System colors */
+  --destructive: #ff2957;
+  --destructive-glow: 0 0 12px rgba(255, 41, 87, 0.5);
+  --border: rgba(0, 255, 187, 0.15);
+  --input: rgba(0, 255, 187, 0.12);
+  --ring: var(--quantum-teal);
+
+  /* Chart colors - quantum AI theme */
+  --chart-1: var(--quantum-neon);
+  --chart-2: var(--quantum-purple);
+  --chart-3: var(--quantum-teal);
+  --chart-4: var(--quantum-blue);
+  --chart-5: var(--quantum-purple-glow);
+
+  /* Sidebar colors */
+  --sidebar: rgba(1, 8, 18, 0.9);
+  --sidebar-foreground: #f0f2ff;
+  --sidebar-primary: var(--quantum-neon);
+  --sidebar-primary-foreground: var(--quantum-dark);
+  --sidebar-accent: var(--quantum-purple);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(0, 255, 187, 0.15);
+  --sidebar-ring: var(--quantum-teal);
+
+  /* Advanced Futuristic UI Variables */
+  --grid-pattern: repeating-linear-gradient(
+    to right,
+    rgba(0, 255, 187, 0.03) 1px,
+    transparent 1px 30px
+  ), 
+  repeating-linear-gradient(
+    to bottom,
+    rgba(0, 255, 187, 0.03) 1px,
+    transparent 1px 30px
+  );
+  --quantum-scanline: linear-gradient(
+    transparent 0%,
+    rgba(0, 255, 187, 0.05) 50%,
+    transparent 100%
+  );
+  --quantum-gradient: linear-gradient(
+    135deg, 
+    rgba(157, 0, 255, 0.2) 0%,
+    rgba(0, 255, 187, 0.2) 50%,
+    rgba(34, 114, 255, 0.2) 100%
+  );
+  --quantum-glow-primary: rgba(0, 255, 187, 0.25);
+  --quantum-glow-strong: rgba(0, 255, 187, 0.6);
+  --quantum-line-color: rgba(0, 255, 187, 0.4);
+  --quantum-terminal-bg: rgba(1, 8, 18, 0.85);
+  --quantum-text-bright: #ffffff;
+  --quantum-text-muted: rgba(240, 242, 255, 0.8);
+  --quantum-text-dim: rgba(240, 242, 255, 0.6);
+  --quantum-highlight-pulse: pulse 3s infinite;
+  --quantum-shadow: 0 5px 15px rgba(0, 255, 187, 0.15);
+}
+
+.dark {
+  /* Background with pattern */
+  --background: var(--quantum-dark);
+  --foreground: #f0f2ff;
+
+  /* Card and popover elements */
+  --card: rgba(15, 23, 42, 0.8);
+  --card-foreground: #f0f2ff;
+  --card-glow: 0 0 15px rgba(0, 255, 187, 0.2);
+  --popover: rgba(10, 16, 30, 0.95);
+  --popover-foreground: #f0f2ff;
+
+  /* Primary - Quantum colors */
+  --primary: var(--quantum-neon);
+  --primary-foreground: var(--quantum-dark);
+  --primary-glow: 0 0 20px rgba(0, 255, 187, 0.5);
+
+  /* Secondary - Purple quantum */
+  --secondary: var(--quantum-purple);
+  --secondary-foreground: #ffffff;
+  --secondary-glow: 0 0 18px rgba(157, 0, 255, 0.4);
+
+  /* Accent - Teal energy */
+  --accent: var(--quantum-teal);
+  --accent-foreground: var(--quantum-dark);
+  --accent-glow: 0 0 15px rgba(0, 204, 183, 0.4);
+
+  /* Muted elements */
+  --muted: rgba(30, 41, 59, 0.8);
+  --muted-foreground: #a3b8f0;
+
+  /* System colors */
+  --destructive: #ff2957;
+  --destructive-glow: 0 0 12px rgba(255, 41, 87, 0.5);
+  --border: rgba(0, 255, 187, 0.15);
+  --input: rgba(0, 255, 187, 0.12);
+  --ring: var(--quantum-teal);
+
+  /* Chart colors - quantum AI theme */
+  --chart-1: var(--quantum-neon);
+  --chart-2: var(--quantum-purple);
+  --chart-3: var(--quantum-teal);
+  --chart-4: var(--quantum-blue);
+  --chart-5: var(--quantum-purple-glow);
+
+  /* Sidebar colors */
+  --sidebar: rgba(1, 8, 18, 0.9);
+  --sidebar-foreground: #f0f2ff;
+  --sidebar-primary: var(--quantum-neon);
+  --sidebar-primary-foreground: var(--quantum-dark);
+  --sidebar-accent: var(--quantum-purple);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(0, 255, 187, 0.15);
+  --sidebar-ring: var(--quantum-teal);
+}
+
+/* Advanced UI Enhancements */
+
+/* Add subtle matrix background to body */
+body {
+  background-image: var(--grid-pattern);
+  position: relative;
+}
+
+/* Add scanlines effect */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--quantum-scanline);
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.4;
+}
+
+/* Add subtle gradient overlay */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--quantum-gradient);
+  pointer-events: none;
+  z-index: 99;
+}
+
+/* Button enhancements */
+button, .btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease, box-shadow 0.5s ease;
+  box-shadow: var(--quantum-shadow);
+}
+
+button:hover, .btn:hover {
+  box-shadow: var(--primary-glow);
+}
+
+button::before, .btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 255, 187, 0.2),
+    transparent
+  );
+  transition: all 0.6s;
+}
+
+button:hover::before, .btn:hover::before {
+  left: 100%;
+}
+
+/* Card enhancements */
+.card {
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  box-shadow: var(--card-glow);
+  overflow: hidden;
+  position: relative;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  animation: border-glow 4s ease-in-out infinite;
+}
+
+/* Input field enhancements */
+input, textarea, select {
+  border-color: var(--border);
+  background-color: rgba(10, 16, 30, 0.6);
+  backdrop-filter: blur(4px);
+  transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--quantum-glow-primary);
+}
+
+/* Text highlighting */
+.highlight {
+  color: var(--primary);
+  position: relative;
+  display: inline-block;
+}
+
+.highlight::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--primary);
+  opacity: 0.7;
+  animation: pulse 3s infinite;
+}
+
+/* Advanced loading animation */
+.loading {
+  position: relative;
+  width: 50px;
+  height: 50px;
+}
+
+.loading::before, .loading::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  animation: loading-pulse 1.8s ease-in-out infinite;
+}
+
+.loading::before {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--quantum-neon);
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  animation-delay: 0s;
+}
+
+.loading::after {
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  border: 2px solid var(--quantum-purple);
+  border-left-color: transparent;
+  border-right-color: transparent;
+  animation-delay: 0.2s;
+}
+
+/* Terminal-style code blocks */
+pre, code {
+  background: var(--quantum-terminal-bg);
+  border: 1px solid var(--quantum-line-color);
+  border-radius: var(--radius);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4), 0 0 10px var(--quantum-glow-primary);
+  padding: 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  position: relative;
+}
+
+pre::before {
+  content: ">";
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  color: var(--primary);
+  opacity: 0.8;
+  animation: blink 1.2s infinite;
+}
+
+/* Progress bar enhancements */
+progress {
+  height: 6px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--muted);
+  position: relative;
+}
+
+progress::-webkit-progress-value {
+  background: linear-gradient(90deg, var(--quantum-purple), var(--quantum-neon));
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+progress::-webkit-progress-value::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5px;
+  height: 100%;
+  background: white;
+  opacity: 0.5;
+  animation: progress-pulse 2s ease-out infinite;
+}
+
+/* Animations */
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes border-glow {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes loading-pulse {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.1) rotate(180deg);
+  }
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes progress-pulse {
+  0% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Responsive adaptations */
+@media (max-width: 768px) {
+  :root {
+    --radius: 0.4rem;
+  }
+  
+  body::before, body::after {
+    opacity: 0.3;
+  }
+}
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  /* https://tailwindcss.com/docs/upgrade-guide#buttons-use-the-default-cursor */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@keyframes scanline {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+/* TODO: EXPLAIN THIS BC U PROMISED JUST IN THE FIRST SECTION */
+@keyframes slow-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-scanline {
+  animation: scanline 8s linear infinite;
+}
+
+.animate-slow-spin {
+  animation: slow-spin 12s linear infinite;
+}
+
+@keyframes sound-wave {
+  0% {
+    height: 10%;
+  }
+  50% {
+    height: 100%;
+  }
+  100% {
+    height: 10%;
+  }
+}
+
+.animate-sound-wave {
+  animation: sound-wave 1.2s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-in-out forwards;
 }
